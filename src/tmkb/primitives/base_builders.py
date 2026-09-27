@@ -64,9 +64,9 @@ class ModelBuilder(ABC):
         anchor: RelativeCoords,
         alignment: RelativeCoords | None = None,
     ) -> None:
-        assert any(
-            asdict(anchor).values()
-        ), "At least one value to anchor have to be set up"
+        assert any(asdict(anchor).values()), (
+            "At least one value to anchor have to be set up"
+        )
 
         if anchor.xpos is not None:
             if anchor.xpos == XPos.LEFT:
@@ -113,11 +113,11 @@ class ModelBuilder(ABC):
     @abstractmethod
     def build(self) -> Any: ...
 
-
-class GroupBuilder(ModelBuilder):
     def to_stl(self, path: Path) -> None:
         self.build().save_as_stl(path)
 
+
+class GroupBuilder(ModelBuilder):
     @cached_property
     def movable_parts(self) -> Collection[ModelBuilder]:
         return [attr for attr in vars(self).values() if isinstance(attr, ModelBuilder)]
