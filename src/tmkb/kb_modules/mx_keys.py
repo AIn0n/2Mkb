@@ -17,7 +17,7 @@ class MxKeyBuilder(ModelBuilder):
     def _generate_mx_stem(self):
         mx_stem_l = 4.0
         mx_stem_w = 1.2
-        mx_stem_h = 3.0
+        mx_stem_h = 3.5
 
         mx_stem_arm = square([mx_stem_l, mx_stem_w], center=True)
         mx_stem_base = circle(d=5.5) - (mx_stem_arm + mx_stem_arm.rotateZ(90))
