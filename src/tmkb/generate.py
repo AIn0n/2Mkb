@@ -166,7 +166,7 @@ def generate_all(config_path: str) -> None:
 def main():
     arg_parser = ArgumentParser(
         "2Mkb generator",
-        "uv run generate_all --conf <CONFIG YAML PATH>",
+        "uv run generate --conf <CONFIG YAML PATH>",
     )
     arg_parser.add_argument(
         "-c", "--conf", type=str, default="src/configs/default.conf.yaml"

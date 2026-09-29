@@ -25,4 +25,11 @@ controller_width_mm: 35
 controller_len_mm: 25
 controller_height_mm: 5
 
+stand_r_mm: 5.0
+stand_screw_r_mm: 0.75
+
 front_arc_r_mm: 4.0
+
+backplate_dims:
+  width_mm: 2
+  screw_r_mm: 0.85

@@ -17,3 +17,6 @@ class StandBuilder(ModelBuilder):
 
     def build(self):
         return self._stand().translate([self.x, self.y, self.z])
+
+    def get_hole(self):
+        return cylinder(h=self.h, r=self.hole_r).translate([self.x, self.y, self.z])
