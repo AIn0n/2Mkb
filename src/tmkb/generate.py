@@ -138,22 +138,29 @@ def generate_all(config_path: str) -> None:
     results: list[ModelGeneratorResult] = []
 
     octave, octave_res = _generate_octave(conf)
-
     results.extend(octave_res)
+    print("(1/5) Generated Octave")
     results.extend(_generate_controller_case(octave, conf))
+    print("(2/5) Generated controller case")
     results.extend(_generate_end_cap(octave, conf))
+    print("(3/5) Generated end cap")
     results.extend(_generate_keys(conf))
+    print("(4/5) generated keys")
 
     try:
         partial_res = _generate_partial_octave(conf)
         results.extend(partial_res)
+        print("(5/5) Generated partial octave")
     except ValueError:
-        print("skipped partial octave generation")
+        print("(5/5) Skipped partial octave")
 
-    print("generated all the parts!")
-    print("Table")
-
-    print(tabulate(results, headers="keys"))
+    print(
+        tabulate(
+            sorted(results, key=lambda x: x.n_prints),
+            headers="keys",
+            tablefmt="fancy_grid",
+        )
+    )
 
 
 def main():
