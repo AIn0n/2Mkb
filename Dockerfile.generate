@@ -1,0 +1,16 @@
+FROM python:3.14-trixie
+
+RUN apt update
+RUN apt install openscad -y
+RUN pip install uv
+
+WORKDIR /app
+
+COPY pyproject.toml ./
+COPY uv.lock ./
+COPY README.md ./
+COPY src/ ./src
+
+RUN uv sync
+
+CMD [ "uv", "run", "generate" ]
