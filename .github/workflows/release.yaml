@@ -10,10 +10,25 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
+      - name: Install yq
+        run: snap install yq -y
+
       - name: Checkout repository
         uses: actions/checkout@v7
-      
+
       - name: Install the latest version of uv
         uses: astral-sh/setup-uv@bec219d24cd3e171d82865faccec33120bb574f4
         with:
           version: "latest"
+          version-file: ".python-version"
+
+      - name: Generate STL files
+        run: uv run generate
+
+      - name: Zip STL files
+        run: zip -r release.zip $(yq ".output_dir" ./src/configs/default.conf.yaml)
+
+      - name: Prepare release
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "release.zip"

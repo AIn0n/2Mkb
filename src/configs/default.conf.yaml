@@ -33,3 +33,5 @@ front_arc_r_mm: 4.0
 backplate_dims:
   width_mm: 2
   screw_r_mm: 0.85
+
+output_dir: "./build/"
