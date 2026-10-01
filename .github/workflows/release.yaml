@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Install yq
-        run: snap install yq -y
+        run: sudo snap install yq
 
       - name: Checkout repository
         uses: actions/checkout@v7
