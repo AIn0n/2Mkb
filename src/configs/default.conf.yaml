@@ -19,7 +19,7 @@ connector_dims:
   base_diff_mm: 4
   margin_mm: 0.5
 
-key_count: 31
+key_count: 40
 
 controller_width_mm: 35
 controller_len_mm: 25
