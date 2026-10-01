@@ -2,6 +2,11 @@ name: Release
 
 on:
   workflow_dispatch:
+    inputs:
+      ReleaseName:
+        description: 'Release Name'
+        required: True
+        default: "Release 0.0.1"
 
 permissions:
   contents: write
@@ -33,4 +38,5 @@ jobs:
       - name: Prepare release
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "release.zip"
+          artifacts: "2mkb_keyboard.zip"
+          name: "${{github.event.inputs.ReleaseName}}"
