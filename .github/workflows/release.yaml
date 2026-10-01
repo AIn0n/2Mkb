@@ -3,10 +3,11 @@ name: Release
 on:
   workflow_dispatch:
     inputs:
-      ReleaseName:
-        description: 'Release Name'
+      ReleaseTag:
+        description: 'Release Tag'
         required: True
-        default: "Release 0.0.1"
+        default: "v0.0.1"
+        type: string
 
 permissions:
   contents: write
@@ -39,4 +40,4 @@ jobs:
         uses: ncipollo/release-action@v1
         with:
           artifacts: "2mkb_keyboard.zip"
-          name: "${{github.event.inputs.ReleaseName}}"
+          tag: "${{inputs.ReleaseTag}}"
