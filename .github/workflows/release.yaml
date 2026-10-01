@@ -10,6 +10,8 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
+      - name: Install OpenSCAD
+        run: sudo apt update && sudo apt install openscad -y
       - name: Install yq
         run: sudo snap install yq
 
