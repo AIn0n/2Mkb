@@ -1,13 +1,11 @@
 name: Release
 
 on:
-  workflow_dispatch:
-    inputs:
-      ReleaseTag:
-        description: 'Release Tag'
-        required: True
-        default: "v0.0.1"
-        type: string
+  push:
+    branches:
+      - master
+    tags:
+      - 'v*'
 
 permissions:
   contents: write
@@ -23,9 +21,6 @@ jobs:
 
       - name: Checkout repository
         uses: actions/checkout@v7
-        with:
-          ref: ${{ inputs.ReleaseTag }}
-
 
       - name: Install the latest version of uv
         uses: astral-sh/setup-uv@bec219d24cd3e171d82865faccec33120bb574f4
@@ -43,4 +38,3 @@ jobs:
         uses: ncipollo/release-action@v1
         with:
           artifacts: "2mkb_keyboard.zip"
-          tag: "${{inputs.ReleaseTag}}"
