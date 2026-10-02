@@ -37,9 +37,10 @@ Step by step:
 
 ### Docker
 
-You can generate models using `Dockerfile.generate`. Modify the default config and run the command:
+You can generate models using `Dockerfile.generate`. Modify the default config and run the commands:
 ```bash
 docker build -f Dockerfile.generate -t generate:latest .
+docker run --rm -v "$(pwd)/build":"/app/build" generate:latest
 ```
 
 You will find all the STL files at `build/` directory.
