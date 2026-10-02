@@ -30,7 +30,7 @@ jobs:
         run: uv run generate
 
       - name: Zip STL files
-        run: zip -r release.zip $(yq ".output_dir" ./src/configs/default.conf.yaml)
+        run: zip -r 2mkb_keyboard.zip $(yq ".output_dir" ./src/configs/default.conf.yaml)
 
       - name: Prepare release
         uses: ncipollo/release-action@v1
