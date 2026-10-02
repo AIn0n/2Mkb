@@ -2,6 +2,7 @@ from argparse import ArgumentParser
 from dataclasses import dataclass
 from functools import cache
 from pathlib import Path
+
 from tabulate import tabulate
 
 from tmkb.configuration import ConfigSchema, load_config
@@ -154,9 +155,10 @@ def generate_all(config_path: str) -> None:
     except ValueError:
         print("(5/5) Skipped partial octave")
 
+    sorted_results = sorted(results, key=lambda x: x.n_prints)
     print(
         tabulate(
-            sorted(results, key=lambda x: x.n_prints),
+            sorted_results,  # type: ignore
             headers="keys",
             tablefmt="fancy_grid",
         )
