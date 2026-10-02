@@ -86,13 +86,20 @@ def _generate_keys(
 
     white_key_path = conf.output_dir / "white_key.stl"
     black_key_path = conf.output_dir / "black_key.stl"
+    octave_key_path = conf.output_dir / "octave_key.stl"
 
-    MxKeyBuilder.mx_key_factory(True, conf).to_stl(white_key_path)
-    MxKeyBuilder.mx_key_factory(False, conf).to_stl(black_key_path)
+    MxKeyBuilder.mx_key_factory(MxKeyType.WHITE, conf).to_stl(white_key_path)
+    MxKeyBuilder.mx_key_factory(MxKeyType.BLACK, conf).to_stl(black_key_path)
+    MxKeyBuilder.mx_key_factory(MxKeyType.OCTAVE_CONTROLLER, conf).to_stl(
+        octave_key_path
+    )
 
     return (
         ModelGeneratorResult("White MX key", n_prints=white_cnt, path=white_key_path),
         ModelGeneratorResult("Black MX key", n_prints=black_cnt, path=black_key_path),
+        ModelGeneratorResult(
+            "Octave Controller MX key", n_prints=2, path=octave_key_path
+        ),
     )
 
 
