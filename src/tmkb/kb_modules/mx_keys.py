@@ -1,3 +1,4 @@
+from enum import Enum, auto
 from typing import Any
 
 from solid2 import circle, polygon, square
@@ -5,6 +6,12 @@ from solid2.extensions.bosl2 import round_corners
 
 from tmkb.configuration import ConfigSchema
 from tmkb.primitives import ModelBuilder
+
+
+class MxKeyType(Enum):
+    WHITE = auto()
+    BLACK = auto()
+    OCTAVE_CONTROLLER = auto()
 
 
 class MxKeyBuilder(ModelBuilder):
@@ -36,9 +43,19 @@ class MxKeyBuilder(ModelBuilder):
         return self._generate_key().translate([self.x, self.y, self.z])
 
     @staticmethod
-    def mx_key_factory(white: bool, conf: ConfigSchema) -> MxKeyBuilder:
-        if white:
-            return MxKeyBuilder(
-                conf.white_key_dims.width, conf.white_key_dims.length, conf
-            )
-        return MxKeyBuilder(conf.black_key_dims.width, conf.black_key_dims.length, conf)
+    def mx_key_factory(key_type: MxKeyType, conf: ConfigSchema) -> MxKeyBuilder:
+        match key_type:
+            case MxKeyType.WHITE:
+                return MxKeyBuilder(
+                    conf.white_key_dims.width, conf.white_key_dims.length, conf
+                )
+            case MxKeyType.BLACK:
+                return MxKeyBuilder(
+                    conf.black_key_dims.width, conf.black_key_dims.length, conf
+                )
+            case MxKeyType.OCTAVE_CONTROLLER:
+                return MxKeyBuilder(
+                    conf.octave_control_key_dims.width,
+                    conf.octave_control_key_dims.length,
+                    conf,
+                )

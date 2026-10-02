@@ -46,6 +46,9 @@ class ConfigSchema:
     black_key_dims: KeyDimensions = field(
         default_factory=lambda: KeyDimensions(length=1.75, width=1.0)
     )
+    octave_control_key_dims: KeyDimensions = field(
+        default_factory=lambda: KeyDimensions(length=1.0, width=1.0)
+    )
     backplate_dims: BackplateDimensions = field(default_factory=BackplateDimensions)
 
     rows_height_diff_mm: float = 12.0
