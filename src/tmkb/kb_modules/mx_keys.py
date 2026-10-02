@@ -40,7 +40,7 @@ class MxKeyBuilder(ModelBuilder):
         return rounded_keycap + stem.up(self.h - 0.01)
 
     def build(self) -> Any:
-        return self._generate_key().translate([self.x, self.y, self.z])
+        return self._generate_key().translate([self.x, self.y, self.z]).rotateX(135.0)
 
     @staticmethod
     def mx_key_factory(key_type: MxKeyType, conf: ConfigSchema) -> MxKeyBuilder:
