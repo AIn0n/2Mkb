@@ -180,4 +180,4 @@ class OctaveBuilder(GroupBuilder):
         super().__init__()
 
     def build(self) -> Any:
-        return self.build_all()
+        return self.build_all().rotateX(270)

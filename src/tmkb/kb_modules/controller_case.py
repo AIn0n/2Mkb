@@ -180,4 +180,4 @@ class CrontrollerCaseBuilder(GroupBuilder):
             - self.octave_up_key_hole.build()
             - self.octave_down_key_hole.build()
             - self.front_arc.build()
-        )
+        ).rotateX(270)

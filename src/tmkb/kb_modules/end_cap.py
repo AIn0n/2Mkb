@@ -92,4 +92,4 @@ class EndCapBuilder(GroupBuilder):
     def build(self):
         return (
             self.build_all() - self.front_stand.get_hole() - self.back_stand.get_hole()
-        )
+        ).rotateX(270)
