@@ -1,6 +1,6 @@
-from math import floor
+from math import atan, degrees, floor
 
-from solid2 import square
+from solid2 import cube, square
 from solid2.extensions.bosl2 import trapezoid
 
 from tmkb.configuration import ConfigSchema
@@ -63,17 +63,24 @@ class ConnectorBuilder(ModelBuilder):
 
     def _generate_male_connector(self):
         margin = self.conf.connector_dims.margin_mm
+        h = self.dx
+        w1 = self.dx - margin
         w2 = self.dx + self.conf.connector_dims.base_diff_mm - margin
 
+        trap = trapezoid(
+            h=h,
+            w1=w1,
+            w2=w2,
+        )
+        cut_mm = self.conf.connector_dims.cut_off_corners_mm
+        if cut_mm is not None and cut_mm > 0:
+            cut_angle = degrees(atan((w2 / 2) / (h / 2)))
+            cut_square = square([w2, cut_mm], center=True)
+            trap -= cut_square.rotateZ(cut_angle).translate([-(w2 / 2), h / 2])
+            trap -= cut_square.rotateZ(-cut_angle).translate([w2 / 2, h / 2])
+
         male_conn = (
-            trapezoid(
-                h=self.dx,
-                w1=self.dx - margin,
-                w2=w2,
-            )
-            .linear_extrude(self.dz - margin)
-            .rotateZ(-90)
-            .translateX(self.dx * 1.5)
+            trap.linear_extrude(self.dz - margin).rotateZ(-90).translateX(self.dx * 1.5)
         )
         conn = square([self.dx, self.dy]).linear_extrude(self.dz)
 
