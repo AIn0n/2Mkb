@@ -2,10 +2,10 @@
 
 ### Code changes
 
-Inspired by (video)[https://youtu.be/KBkqJZ9JPc8?t=698], I added parameter to cut the corners of connector.
+Inspired by [video](https://youtu.be/KBkqJZ9JPc8?t=698), I added parameter to cut the corners of connector.
 It can be turned off, I didn't test it yet.
 
-Unfortunately, OpenSCAD is heavily limited, in comparison to tool like build123d, which I would probably use
+Unfortunately, OpenSCAD is heavily limited, compared to tool like build123d, which I would probably use
 for all my future projects. Due to that, proper chamfering and filleting is really a lot of hustle to do.
 Current implementation cut out *N* mms from each corner of the trapezoid, without any rounding. The parameter
 can be found at `default.conf.yaml->connector_dims->cut_off_corners_mm`. It ain't much but it honest work!
