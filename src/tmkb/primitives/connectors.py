@@ -74,8 +74,12 @@ class ConnectorBuilder(ModelBuilder):
                 w1=w1,
                 w2=w2,
             )
-            - square([w1, w1]).translate([-(w2 / 2), h / 2]).rotateZ(cut_angle)
-            - square([w1, w1]).translate([w2 / 2, h / 2]).rotateZ(-cut_angle)
+            - square([w1 / 2, w1 / 2], center=True)
+            .rotateZ(cut_angle)
+            .translate([-(w2 / 2), h / 2])
+            - square([w1 / 2, w1 / 2], center=True)
+            .rotateZ(-cut_angle)
+            .translate([w2 / 2, h / 2])
         )
 
         male_conn = (
