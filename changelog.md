@@ -26,7 +26,9 @@ Also, I've successfully built first prototype, using NRF52840 cheap, chinese nic
 for it, using ZMK. I've only got this microcontroller on my hand, but the final version I would love to build
 using arduino pro micro or RPi Pico and QMK Firmware, due to lack of the support for MIDI signals in ZMK.
 
-
+![Keyboard front view](./images/front_view.jpeg)
+![Keyboard back view](./images/back_view.jpeg)
+![Keyboard side view](./images/side_view.jpeg)
 
 I've got really valueable informations thanks to this prototype, next (I hope final 🙏) version have to be a
 bit taller, to accomodate space for goldpin connectors.
