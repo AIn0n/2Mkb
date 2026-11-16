@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import cast
+from typing import cast, Optional
 
 from omegaconf import OmegaConf
 
@@ -27,6 +27,7 @@ class KeyDimensions:
 class ConnectorDimensions:
     base_diff_mm: float = 2
     margin_mm: float = 0.06
+    cut_off_corners_mm: Optional[float] = None
 
 
 @dataclass

@@ -67,25 +67,20 @@ class ConnectorBuilder(ModelBuilder):
         w1 = self.dx - margin
         w2 = self.dx + self.conf.connector_dims.base_diff_mm - margin
 
-        cut_angle = degrees(atan((w2 / 2) / (h / 2)))
-        cut_trap = (
-            trapezoid(
-                h=h,
-                w1=w1,
-                w2=w2,
-            )
-            - square([w1 / 2, w1 / 2], center=True)
-            .rotateZ(cut_angle)
-            .translate([-(w2 / 2), h / 2])
-            - square([w1 / 2, w1 / 2], center=True)
-            .rotateZ(-cut_angle)
-            .translate([w2 / 2, h / 2])
+        trap = trapezoid(
+            h=h,
+            w1=w1,
+            w2=w2,
         )
+        cut_mm = self.conf.connector_dims.cut_off_corners_mm
+        if cut_mm is not None and cut_mm > 0:
+            cut_angle = degrees(atan((w2 / 2) / (h / 2)))
+            cut_square = square([w2, cut_mm], center=True)
+            trap -= cut_square.rotateZ(cut_angle).translate([-(w2 / 2), h / 2])
+            trap -= cut_square.rotateZ(-cut_angle).translate([w2 / 2, h / 2])
 
         male_conn = (
-            cut_trap.linear_extrude(self.dz - margin)
-            .rotateZ(-90)
-            .translateX(self.dx * 1.5)
+            trap.linear_extrude(self.dz - margin).rotateZ(-90).translateX(self.dx * 1.5)
         )
         conn = square([self.dx, self.dy]).linear_extrude(self.dz)
 
