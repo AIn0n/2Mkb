@@ -11,13 +11,13 @@ Current implementation cut out *N* mms from each corner of the trapezoid, withou
 can be found at `default.conf.yaml->connector_dims->cut_off_corners_mm`. It ain't much but it honest work!
 
 `cut_off_corners_mm` set to None or <0:
-![images/cut_off_corners_null.png]
+![Image no cut corners](./images/cut_off_corners_null.png)
 
 `cut_off_corners_mm` set to 1:
-![images/cut_off_corners_1.png]
+![Image cut off corners 1mm](./images/cut_off_corners_1.png)
 
 `cut_off_corners_mm` set to 2:
-![images/cut_off_corners_3.png]
+![Image cut off corners 3mm](./images/cut_off_corners_3.png)
 
 
 ### Hardware progress
