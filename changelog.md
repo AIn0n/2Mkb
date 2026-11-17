@@ -54,4 +54,4 @@ node support-fins.mjs build/partial_octave.stl --mode full
 ### TODO
 
 - [ ] Print one model using fins rather than classical supports
-- [ ] Report bug to the author
+- [X] Report bug to the author
