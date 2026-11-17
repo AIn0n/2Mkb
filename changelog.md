@@ -32,3 +32,26 @@ using arduino pro micro or RPi Pico and QMK Firmware, due to lack of the support
 
 I've got really valueable informations thanks to this prototype, next (I hope final 🙏) version have to be a
 bit taller, to accomodate space for goldpin connectors.
+
+
+## 2026-11-17
+
+Today, I tested how [printfins](https://printfins.com/) could be used for this project
+as a support structure. Manually, using webpage and setting up placement to `Full Coverage`
+I've got really good results, with one small error - one support fin which doesn't support
+any part of the model (right down corner of the image below).
+
+![Fins support at partial octave model](./images/fins-support.png)
+
+I've tested the CLI version, it is served as node module, and do the same model as
+the webpage one. It could be successfully used as a part of building model pipeline.
+
+Command:
+```bash
+node support-fins.mjs build/partial_octave.stl --mode full
+```
+
+### TODO
+
+- [ ] Print one model using fins rather than classical supports
+- [ ] Report bug to the author
