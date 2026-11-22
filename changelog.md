@@ -55,3 +55,15 @@ node support-fins.mjs build/partial_octave.stl --mode full
 
 - [ ] Print one model using fins rather than classical supports
 - [X] Report bug to the author
+
+## 2026-11-22
+
+I've added parameter to control number of segments, for round objects, thanks to [stack overflow post](https://stackoverflow.com/questions/54073851/how-to-set-special-variables-fa-fs-fn-in-solidpython).
+
+
+Before:
+![Before segments stand hole](./images/before-segments.png)
+
+
+After:
+![After segments stand hole](./images/after-segments.png)

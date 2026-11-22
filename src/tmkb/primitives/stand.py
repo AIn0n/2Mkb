@@ -10,10 +10,13 @@ class StandBuilder(ModelBuilder):
         self.r = conf.stand_r_mm
         self.h = height
         self.hole_r = conf.stand_screw_r_mm
+        self.fn = conf.segments
         super().__init__(0, 0, 0, conf.stand_r_mm, conf.stand_r_mm, height)
 
     def _stand(self):
-        return cylinder(h=self.h, r=self.r) - cylinder(h=self.h, r=self.hole_r)
+        return cylinder(h=self.h, r=self.r) - cylinder(
+            h=self.h, r=self.hole_r, _fn=self.fn
+        )
 
     def build(self):
         return self._stand().translate([self.x, self.y, self.z])

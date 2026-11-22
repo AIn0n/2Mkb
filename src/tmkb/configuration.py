@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import cast, Optional
+from typing import Optional, cast
 
 from omegaconf import OmegaConf
 
@@ -76,6 +76,7 @@ class ConfigSchema:
     controller_height_mm: float = 5.0
 
     front_arc_r_mm: float = 5
+    segments: int = 30
 
 
 def load_config(path: Path = Path("default.conf.yaml")) -> ConfigSchema:
