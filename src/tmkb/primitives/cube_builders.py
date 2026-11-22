@@ -75,13 +75,14 @@ class KeyRowBuilder(ModelBuilder):
 
 
 class XRoundedCubeBuilder(ModelBuilder):
-    def __init__(self, dx: float, dy: float, dz: float):
+    def __init__(self, dx: float, dy: float, dz: float, segments: int):
         assert dy >= dz
         self.r = dz / 2
+        self.fn = segments
         super().__init__(0, 0, 0, dx, dy, dz)
 
     def build(self) -> Any:
-        cyl = cylinder(h=self.dx, d=self.dz)
+        cyl = cylinder(h=self.dx, d=self.dz, _fn=self.fn)
         c_len = self.dy - self.dz
         c = cube([self.dz, c_len, self.dx])
         return (

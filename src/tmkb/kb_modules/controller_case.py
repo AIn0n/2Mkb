@@ -48,6 +48,7 @@ class CrontrollerCaseBuilder(GroupBuilder):
             conf.mount_plate_width * 2,
             conf.controller_len_mm,
             conf.controller_height_mm,
+            conf.segments,
         )
         self.front_arc = InvertedArcBuilder(
             total_dx + conf.mount_plate_width, conf.front_arc_r_mm, conf.segments
