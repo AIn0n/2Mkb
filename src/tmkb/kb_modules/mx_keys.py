@@ -38,7 +38,7 @@ class MxKeyBuilder(ModelBuilder):
         stem = self._generate_mx_stem()
         keycap_base = square([self.u * self.dx, self.u * self.dy], center=True)
         rounded_keycap = polygon(
-            round_corners(path=keycap_base, radius=self.rounding_radius)
+            round_corners(path=keycap_base, radius=self.rounding_radius, _fn=self.fn)
         ).linear_extrude(height=self.h)
         return rounded_keycap + stem.up(self.h - 0.01)
 
