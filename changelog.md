@@ -62,8 +62,14 @@ I've added parameter to control number of segments, for round objects, thanks to
 
 
 Before:
+
 ![Before segments stand hole](./images/before-segments.png)
 
 
 After:
+
 ![After segments stand hole](./images/after-segments.png)
+
+Slicer shows the same time to build part, no matter how many segments do we use. Generator runs
+a bit longer, for some models even 150% of previous time, but I think it's worth
+the effort.
