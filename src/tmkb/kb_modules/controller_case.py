@@ -50,7 +50,7 @@ class CrontrollerCaseBuilder(GroupBuilder):
             conf.controller_height_mm,
         )
         self.front_arc = InvertedArcBuilder(
-            total_dx + conf.mount_plate_width, conf.front_arc_r_mm
+            total_dx + conf.mount_plate_width, conf.front_arc_r_mm, conf.segments
         )
         self.octave_up_key_hole = CubeBuilder(
             conf.mount_u, conf.mount_u, conf.mount_plate_width

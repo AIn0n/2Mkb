@@ -19,6 +19,7 @@ class MxKeyBuilder(ModelBuilder):
         self.u = conf.keycap_u
         self.h = conf.keycap_height_mm
         self.rounding_radius = conf.keycap_rounding_corner_mm
+        self.fn = conf.segments
         super().__init__(0, 0, 0, dx, dy, 0)
 
     def _generate_mx_stem(self):
@@ -27,7 +28,9 @@ class MxKeyBuilder(ModelBuilder):
         mx_stem_h = 3.5
 
         mx_stem_arm = square([mx_stem_l, mx_stem_w], center=True)
-        mx_stem_base = circle(d=5.5) - (mx_stem_arm + mx_stem_arm.rotateZ(90))
+        mx_stem_base = circle(d=5.5, _fn=self.fn) - (
+            mx_stem_arm + mx_stem_arm.rotateZ(90)
+        )
 
         return mx_stem_base.linear_extrude(height=mx_stem_h)
 

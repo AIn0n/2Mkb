@@ -44,7 +44,9 @@ class OctaveWhitePartBuilder(GroupBuilder):
             conf.base_height_mm,
         )
         self.front_arc = InvertedArcBuilder(
-            self.key_row.dx - self.female_connector.dx, conf.front_arc_r_mm
+            self.key_row.dx - self.female_connector.dx,
+            conf.front_arc_r_mm,
+            conf.segments,
         )
         self.left_stand = StandBuilder(conf.base_height_mm, conf)
         self.right_stand = StandBuilder(conf.base_height_mm, conf)
@@ -114,7 +116,7 @@ class OctaveBlackPartBuilder(GroupBuilder):
             conf,
         )
         self.middle_wall = CubeBuilder(octave_width, conf.mount_plate_width, bw_diff)
-        self.outer_arc = ArcBuilder(octave_width, bw_diff)
+        self.outer_arc = ArcBuilder(octave_width, bw_diff, conf.segments)
         self.back_wall = CubeBuilder(
             octave_width,
             conf.mount_plate_width,
