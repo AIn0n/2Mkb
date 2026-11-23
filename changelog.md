@@ -88,4 +88,4 @@ Teardrop on:
 ![Teardrop screw hole on](./images/teardrop_on.png)
 
 It should be beneficial for screwing backplate using screw directly to the hole.
-Probably it should be turned off for heat inserts.
+Probably it should be turned off for heat inserts. Found at [Maker's Muse video](https://youtu.be/KBkqJZ9JPc8?t=589).
