@@ -77,6 +77,7 @@ class ConfigSchema:
 
     front_arc_r_mm: float = 5
     segments: int = 30
+    teardrop_holes: bool = True
 
 
 def load_config(path: Path = Path("default.conf.yaml")) -> ConfigSchema:
