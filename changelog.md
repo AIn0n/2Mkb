@@ -73,3 +73,19 @@ After:
 Slicer shows the same time to build part, no matter how many segments do we use. Generator runs
 a bit longer, for some models even 150% of previous time, but I think it's worth
 the effort.
+
+
+## 2026-11-23
+
+Added configurable teardrop shape for screw holes.
+
+Teardrop off:
+
+![Teardrop screw hole off](./images/teardrop_off.png)
+
+Teardrop on:
+
+![Teardrop screw hole on](./images/teardrop_on.png)
+
+It should be beneficial for screwing backplate using screw directly to the hole.
+Probably it should be turned off for heat inserts. Found at [Maker's Muse video](https://youtu.be/KBkqJZ9JPc8?t=589).

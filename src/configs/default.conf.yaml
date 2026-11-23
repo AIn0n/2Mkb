@@ -37,3 +37,4 @@ backplate_dims:
 
 output_dir: "./build/"
 segments: 90
+teardrop_holes: true
