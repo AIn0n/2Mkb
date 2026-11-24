@@ -42,8 +42,14 @@ class MxKeyBuilder(ModelBuilder):
         ).linear_extrude(height=self.h)
         return rounded_keycap + stem.up(self.h - 0.01)
 
-    def build(self) -> Any:
-        return self._generate_key().translate([self.x, self.y, self.z]).rotateX(135.0)
+    def build(
+        self, printing_orientation: bool = True, rotation: float | None = None
+    ) -> Any:
+        if rotation is None:
+            rotation = 135.0 if printing_orientation else 0.0
+        return (
+            self._generate_key().rotateX(rotation).translate([self.x, self.y, self.z])
+        )
 
     @staticmethod
     def mx_key_factory(key_type: MxKeyType, conf: ConfigSchema) -> MxKeyBuilder:

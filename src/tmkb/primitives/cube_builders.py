@@ -1,5 +1,5 @@
 from itertools import accumulate
-from typing import Any
+from typing import Any, Sequence
 
 from solid2 import cube, cylinder, square
 
@@ -50,9 +50,14 @@ class KeyRowBuilder(ModelBuilder):
         conf: ConfigSchema,
     ):
         self.conf = conf
-        self.x_key_offsets = x_key_offsets
+        self.x_key_offsets = list(accumulate(x_key_offsets))
         self.y_offset = y_offset
         super().__init__(0, 0, 0, width, len_, self.conf.mount_plate_width)
+
+    def get_total_key_positions(self) -> Sequence[tuple[float, float, float]]:
+        return [
+            (self.x + x, self.y + self.y_offset, self.z) for x in self.x_key_offsets
+        ]
 
     def to_cube(self) -> CubeBuilder:
         cube = CubeBuilder(self.dx, self.dy, self.dz)
@@ -65,7 +70,7 @@ class KeyRowBuilder(ModelBuilder):
         )
         mounting_plate = square([self.dx, self.dy])
 
-        for sep in accumulate(self.x_key_offsets):
+        for sep in self.x_key_offsets:
             mounting_plate -= mx_hole.translateX(sep)
 
         return mounting_plate.linear_extrude(self.dz)

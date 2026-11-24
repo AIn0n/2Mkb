@@ -21,7 +21,7 @@ class OctaveWhitePartBuilder(GroupBuilder):
         self.white_keys = white_keys
         wk_total_width = conf.white_key_dims.width_to_mm(conf)
         octave_width = wk_total_width * white_keys
-        distances = [conf.white_key_dims.key_offset_x(conf)] + [wk_total_width] * 7
+        distances = [conf.white_key_dims.key_offset_x(conf)] + [wk_total_width] * 6
         wk_len_offset = conf.white_key_dims.key_offset_y(conf)
         white_plate_len = conf.white_key_dims.length_to_mm(conf)
 
@@ -181,5 +181,6 @@ class OctaveBuilder(GroupBuilder):
         )
         super().__init__()
 
-    def build(self) -> Any:
-        return self.build_all().rotateX(270)
+    def build(self, printing_orientation: bool = True) -> Any:
+        model = self.build_all()
+        return model.rotateX(270) if printing_orientation else model
