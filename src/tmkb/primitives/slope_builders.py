@@ -4,8 +4,9 @@ from typing import Any
 
 from solid2 import cube, square
 
-from .base_builders import ModelBuilder
-from .copy_fields import OptionalCopyField, resolve_optional_copy_field
+from tmkb.primitives.base_builders import ModelBuilder, GroupBuilder
+from tmkb.primitives.cube_builders import CubeBuilder
+from tmkb.primitives.copy_fields import OptionalCopyField, resolve_optional_copy_field
 
 
 class SlopeBuilder(ModelBuilder):
@@ -48,22 +49,25 @@ class SlopeBuilder(ModelBuilder):
         return self._slope().translate([self.x, self.y, self.z])
 
 
-class SquareXPunchedSlopeBuilder(SlopeBuilder):
+class SquareXPunchedSlopeBuilder(GroupBuilder):
     def __init__(
         self,
         dx: float,
         dy: float,
         dz: float,
         distances: list[float],
-        hole_dims: tuple[float, float],
+        hole_dx: float,
     ) -> None:
-        self.distances = distances
-        self.hole_x, self.hole_y = hole_dims
-        super().__init__(dx, dy, dz)
+        self.holes: list[CubeBuilder] = []
+        for dist in accumulate(distances):
+            hole = CubeBuilder(hole_dx, dy, dz)
+            hole.move([dist, 0, 0])
+            self.holes.append(hole)
+        self.slope = SlopeBuilder(dx, dy, dz)
+        super().__init__()
 
     def build(self) -> Any:
-        model = super().build()
-        hole = cube([self.hole_x, self.hole_y, self.dz])
-        for dist in accumulate(self.distances):
-            model -= hole.translateX(dist).translateZ(self.z)
+        model = self.slope.build()
+        for hole in self.holes:
+            model -= hole.build()
         return model

@@ -120,7 +120,15 @@ class ModelBuilder(ABC):
 class GroupBuilder(ModelBuilder):
     @cached_property
     def movable_parts(self) -> Collection[ModelBuilder]:
-        return [attr for attr in vars(self).values() if isinstance(attr, ModelBuilder)]
+        res = []
+        for attr in vars(self).values():
+            if isinstance(attr, ModelBuilder):
+                res.append(attr)
+            if isinstance(attr, Sequence) and all(
+                map(lambda x: isinstance(x, ModelBuilder), attr)
+            ):
+                res.extend(attr)
+        return res
 
     def __init__(self):
         super().__init__(0, 0, 0, 0, 0, 0)

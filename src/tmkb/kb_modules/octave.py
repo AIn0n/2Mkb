@@ -108,13 +108,14 @@ class OctaveBlackPartBuilder(GroupBuilder):
         wk_total_width = conf.white_key_dims.width_to_mm(conf)
         octave_width = wk_total_width * white_keys
         distances = get_black_key_dist(wk_total_width, conf.mount_u)
+        distances = distances[: WHITE_TO_BLACK_KEY_RATIO[white_keys]]
 
         bw_diff = conf.white_black_keys_offset_mm + conf.mount_plate_width
 
         self.key_row = KeyRowBuilder(
             octave_width,
             conf.dist_u,
-            distances[: WHITE_TO_BLACK_KEY_RATIO[white_keys]],
+            distances,
             KeyDimensions(1, 1).key_offset_y(conf),
             conf,
         )
@@ -129,12 +130,13 @@ class OctaveBlackPartBuilder(GroupBuilder):
         self.female_connector = ConnectorBuilder(
             distances[0], conf.dist_u, conf, male=False
         )
+        slope_distances = [distances[0] - self.female_connector.dx] + distances[1:]
         self.internal_slope = SquareXPunchedSlopeBuilder(
             octave_width - self.female_connector.dx,
             conf.dist_u - conf.mount_plate_width,
             bw_diff,
-            distances,
-            (conf.mount_u, conf.dist_u),
+            slope_distances,
+            conf.mount_u,
         )
         self.back_wall.move_rel(
             self.key_row, RelativeCoords(ypos=YPos.BACK), RelativeCoords(zpos=ZPos.TOP)
