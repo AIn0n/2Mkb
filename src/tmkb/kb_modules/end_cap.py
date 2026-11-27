@@ -1,3 +1,5 @@
+from copy import deepcopy
+
 from tmkb.configuration import ConfigSchema
 from tmkb.kb_modules.octave import OctaveBuilder
 from tmkb.primitives import CubeBuilder, SlopeBuilder, StandBuilder
@@ -12,8 +14,8 @@ class EndCapBuilder(GroupBuilder):
         )
 
     def __init__(self, octave: OctaveBuilder, conf: ConfigSchema) -> None:
-        self.black_part_connector = octave.black_part.female_connector
-        self.white_part_connector = octave.white_part.female_connector
+        self.black_part_connector = deepcopy(octave.black_part.female_connector)
+        self.white_part_connector = deepcopy(octave.white_part.female_connector)
         total_dx_excl_wall = self.compute_dx(octave, conf)
         total_dx = total_dx_excl_wall + conf.mount_plate_width
         self.black_part_wall = octave.black_part.key_row.to_cube().copy_and_modify(
@@ -89,7 +91,8 @@ class EndCapBuilder(GroupBuilder):
         )
         super().__init__()
 
-    def build(self):
-        return (
+    def build(self, printing_orientation: bool = True):
+        model = (
             self.build_all() - self.front_stand.get_hole() - self.back_stand.get_hole()
-        ).rotateX(270)
+        )
+        return model.rotateX(270) if printing_orientation else model

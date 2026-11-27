@@ -1,3 +1,4 @@
+from copy import deepcopy
 from tmkb.configuration import ConfigSchema, KeyDimensions
 from tmkb.kb_modules.octave import OctaveBuilder
 from tmkb.kb_modules.mx_keys import MxKeyType
@@ -27,8 +28,8 @@ class CrontrollerCaseBuilder(GroupBuilder):
         )
 
     def __init__(self, octave: OctaveBuilder, conf: ConfigSchema):
-        self.black_part_connector = octave.black_part.male_connector
-        self.white_part_connector = octave.white_part.male_connector
+        self.black_part_connector = deepcopy(octave.black_part.male_connector)
+        self.white_part_connector = deepcopy(octave.white_part.male_connector)
         total_dx = self.compute_total_dx(conf)
         self.top_wall = CubeBuilder(total_dx, octave.dy, conf.mount_plate_width)
         self.back_wall = octave.black_part.back_wall.copy_and_modify(new_dx=total_dx)
