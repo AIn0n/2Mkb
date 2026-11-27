@@ -1,5 +1,6 @@
 from tmkb.configuration import ConfigSchema, KeyDimensions
 from tmkb.kb_modules.octave import OctaveBuilder
+from tmkb.kb_modules.mx_keys import MxKeyType
 from tmkb.primitives import (
     CubeBuilder,
     InvertedArcBuilder,
@@ -8,6 +9,7 @@ from tmkb.primitives import (
     XRoundedCubeBuilder,
 )
 from tmkb.primitives.base_builders import GroupBuilder, RelativeCoords, XPos, YPos, ZPos
+from typing import Sequence
 
 
 class CrontrollerCaseBuilder(GroupBuilder):
@@ -161,8 +163,18 @@ class CrontrollerCaseBuilder(GroupBuilder):
 
         super().__init__()
 
-    def build(self):
-        return (
+    def get_total_key_positions(
+        self, key_type: MxKeyType
+    ) -> Sequence[tuple[float, float, float]]:
+        if key_type != MxKeyType.OCTAVE_CONTROLLER:
+            return []
+        return [
+            (el.x, el.y, el.z)
+            for el in (self.octave_up_key_hole, self.octave_down_key_hole)
+        ]
+
+    def build(self, printing_orientation: bool = True):
+        model = (
             self.black_part_connector.build()
             + self.white_part_connector.build()
             + self.top_wall.build()
@@ -181,4 +193,5 @@ class CrontrollerCaseBuilder(GroupBuilder):
             - self.octave_up_key_hole.build()
             - self.octave_down_key_hole.build()
             - self.front_arc.build()
-        ).rotateX(270)
+        )
+        return model.rotateX(270) if printing_orientation else model

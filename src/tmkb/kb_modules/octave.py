@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, Sequence
 
 from tmkb.configuration import ConfigSchema, KeyDimensions
 from tmkb.constants import WHITE_TO_BLACK_KEY_RATIO, get_black_key_dist
@@ -13,6 +13,7 @@ from tmkb.primitives import (
 )
 from tmkb.primitives.base_builders import GroupBuilder, RelativeCoords, XPos, YPos, ZPos
 from tmkb.primitives.connectors import ConnectorBuilder
+from tmkb.kb_modules.mx_keys import MxKeyType
 
 
 class OctaveWhitePartBuilder(GroupBuilder):
@@ -21,7 +22,9 @@ class OctaveWhitePartBuilder(GroupBuilder):
         self.white_keys = white_keys
         wk_total_width = conf.white_key_dims.width_to_mm(conf)
         octave_width = wk_total_width * white_keys
-        distances = [conf.white_key_dims.key_offset_x(conf)] + [wk_total_width] * 6
+        distances = [conf.white_key_dims.key_offset_x(conf)] + (
+            [wk_total_width] * (white_keys - 1)
+        )
         wk_len_offset = conf.white_key_dims.key_offset_y(conf)
         white_plate_len = conf.white_key_dims.length_to_mm(conf)
 
@@ -184,3 +187,14 @@ class OctaveBuilder(GroupBuilder):
     def build(self, printing_orientation: bool = True) -> Any:
         model = self.build_all()
         return model.rotateX(270) if printing_orientation else model
+
+    def get_total_key_positions(
+        self, key_type: MxKeyType
+    ) -> Sequence[tuple[float, float, float]]:
+        match key_type:
+            case MxKeyType.BLACK:
+                return self.black_part.key_row.get_total_key_positions()
+            case MxKeyType.WHITE:
+                return self.white_part.key_row.get_total_key_positions()
+            case _:
+                return []
