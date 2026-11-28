@@ -5,6 +5,9 @@ from functools import cached_property
 from pathlib import Path
 from typing import Any, Collection, Sequence
 
+import scad123d
+from build123d import export_step, export_stl
+
 
 class XPos(Enum):
     LEFT = auto()
@@ -120,6 +123,18 @@ class ModelBuilder(ABC):
         """returns saved file path"""
         self.build().save_as_scad(path)
         return path
+
+    def full_export(self, dir: Path, fn: str) -> tuple[Path, Path, Path]:
+        scad_path = self.as_scad(dir / "scads" / f"{fn}.scad")
+        stl_path = dir / "stls" / f"{fn}.stl"
+        step_path = dir / "steps" / f"{fn}.step"
+
+        part = scad123d.import_scad(scad_path)
+
+        export_stl(part, stl_path)
+        export_step(part, step_path)
+
+        return (scad_path, stl_path, step_path)
 
 
 class GroupBuilder(ModelBuilder):
