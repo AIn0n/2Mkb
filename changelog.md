@@ -89,3 +89,8 @@ Teardrop on:
 
 It should be beneficial for screwing backplate using screw directly to the hole.
 Probably it should be turned off for heat inserts. Found at [Maker's Muse video](https://youtu.be/KBkqJZ9JPc8?t=589).
+
+
+## 2026-11-28
+
+Refactored generator script to use build123d library in place of openSCAD. Thanks to scad123d, now it's possible to save models as STEP. Also whole process is way faster, and now segments configuration argument is probably obsolete.
