@@ -9,6 +9,7 @@ authors = [
 requires-python = ">=3.14"
 dependencies = [
     "omegaconf>=2.3.1",
+    "scad123d>=0.9.0",
     "solidpython2>=2.1.3",
     "tabulate>=0.10.0",
 ]
@@ -20,7 +21,7 @@ generate = "tmkb.generate:main"
 [project.optional-dependencies]
 preview = [
     "ipykernel>=7.3.0",
-    "jupyterscad>=1.0",
+    "ocp-vscode>=4.3.0",
 ]
 
 [build-system]

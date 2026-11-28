@@ -116,6 +116,11 @@ class ModelBuilder(ABC):
     def to_stl(self, path: Path) -> None:
         self.build().save_as_stl(path)
 
+    def as_scad(self, path: Path) -> Path:
+        """returns saved file path"""
+        self.build().save_as_scad(path)
+        return path
+
 
 class GroupBuilder(ModelBuilder):
     @cached_property
